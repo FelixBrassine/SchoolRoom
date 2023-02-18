@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>SchoolRoom</title>
+    <th:block th:replace="~{fragment/fragments :: base_css}"></th:block>
+</head>
+<body>
+    <th:block th:replace="~{fragment/header :: header}"></th:block>
+        <main>
+            <h1>Registration form</h1>
+
+            <form action="/auth/register" method="post" th:object="${form}">
+
+                <div class="mb-3">
+                    <label for="in-email" class="form-label">Email</label><br/>
+                    <input type="email" id="in-email" th:field="*{email}" class="form-control">
+                    <p th:if="${#fields.errors('email')}" th:errors="*{email}" class="form-text form-error"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="in-pswd" class="form-label">Password</label><br/>
+                    <input type="password" id="in-pswd" th:field="*{password}" class="form-control">
+                    <p th:if="${#fields.errors('password')}" th:errors="*{password}" class="form-text form-error"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="in-confirm" class="form-label">Confirm password</label><br/>
+                    <input type="password" id="in-confirm" th:field="*{confirm}" class="form-control">
+                    <div th:if="${#fields.hasGlobalErrors()}">
+                        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="form-text form-error"></p>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="in-login" class="form-label">Login</label><br/>
+                    <input type="text" id="in-login" th:field="*{login}" class="form-control">
+                    <p th:if="${#fields.errors('login')}" th:errors="*{login}" class="form-text form-error"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="in-name" class="form-label">Lastname</label><br/>
+                    <input type="text" id="in-name" th:field="*{name}" class="form-control">
+                    <p th:if="${#fields.errors('name')}" th:errors="*{name}" class="form-text form-error"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="in-firstname" class="form-label">Firstname</label><br/>
+                    <input type="text" id="in-firstname" th:field="*{firstName}" class="form-control">
+                    <p th:if="${#fields.errors('firstName')}" th:errors="*{firstName}" class="form-text form-error"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="in-phone" class="form-label">Phone number</label><br/>
+                    <input type="text" id="in-phone" th:field="*{phoneNumber}" class="form-control">
+                    <p th:if="${#fields.errors('phoneNumber')}" th:errors="*{phoneNumber}" class="form-text form-error"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="in-adress" class="form-label">Adress</label><br/>
+                    <textarea id="in-adress" class="form-control" cols="30" rows="10" th:field="*{adress}"></textarea>
+                    <p th:if="${#fields.errors('adress')}" th:errors="*{adress}" class="form-text form-error"></p>
+                </div>
+                <legend>Select a role</legend>
+                <fieldset class="form-check form-check-inline" th:each="role : ${T(be.technobel.fbrassine.models.entity.Role).values()}">
+                    <div>
+                        <input type="radio" id="student" name="role" th:value="${role}">
+                        <label th:text="${role}"></label>
+                    </div>
+                </fieldset><br/>
+                <p th:if="${#fields.errors('role')}" th:errors="*{role}" class="form-text form-error"></p><br/>
+                <button type="submit" class="btn btn-success">Sign up</button>
+        </form>
+        </main>
+    <th:block th:replace="~{fragment/footer :: footer}"></th:block>
+    <th:block th:replace="~{fragment/fragments :: base_js}"></th:block>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SchoolRoom</title>
+  <th:block th:replace="~{fragment/fragments :: base_css}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{fragment/header :: header}"></th:block>
+<main>
+  <h1>Material update form</h1>
+  <form th:action="@{ /material/{id}/update (id=${id}) }" method="post" th:object="${form}">
+    <div class="mb-3">
+      <label for="in-name" class="form-label">name:</label><br/>
+      <input type="text" id="in-name" class="form-control" th:field="*{name}">
+      <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </div>
+    <button class="btn btn-success" type="submit">Update</button>
+  </form>
+</main>
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+<th:block th:replace="~{fragment/fragments :: base_js}"></th:block>
+</body>
+</html>

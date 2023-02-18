@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SchoolRoom</title>
+    <th:block th:replace="~{fragment/fragments :: base_css}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{fragment/header :: header}"></th:block>
+<main>
+    <h1>Room n° : <span th:text="${room.id}"></span> </h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>number of places</td>
+            <td>is teacher room</td>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${room.id}"></td>
+            <td th:text="${room.name}"></td>
+            <td th:text="${room.numberPlaces}"></td>
+            <td th:text="${room.teacherRoom}"></td>
+            <td><a class="btn btn-outline-danger" th:href="@{ /room/{id}/update (id=*{id}) }">Update</a></td> <td>
+            <form th:action="@{ /room/{id}/delete (id=*{id}) }" method="post">
+                <button type="submit" class="btn btn-outline-danger" th:field="*{id}">Delete</button>
+            </form>
+        </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+<th:block th:replace="~{fragment/fragments :: base_js}"></th:block>
+</body>
+</html>

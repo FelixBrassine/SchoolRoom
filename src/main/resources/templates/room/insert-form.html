@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>SchoolRoom</title>
+    <th:block th:replace="~{fragment/fragments :: base_css}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{fragment/header :: header}"></th:block>
+<main>
+    <h1>Room insert form</h1>
+
+    <form action="/room/add" method="post" th:object="${form}">
+
+        <div class="mb-3">
+            <label for="in-name" class="form-label">Name</label><br/>
+            <input type="text" id="in-name" th:field="*{name}" class="form-control">
+            <p th:if="${#fields.errors('name')}" th:errors="*{name}" class="form-text form-error"></p>
+        </div>
+        <div class="mb-3">
+            <label for="in-numberPlaces" class="form-label">Number of Places</label><br/>
+            <input type="number" id="in-numberPlaces" th:field="*{numberPlaces}" class="form-control">
+            <p th:if="${#fields.errors('numberPlaces')}" th:errors="*{numberPlaces}" class="form-text form-error"></p>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" th:field="*{teacherRoom}">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Teacher room ?</label>
+        </div><br/>
+        <button type="submit" class="btn btn-success">Insert</button>
+    </form>
+</main>
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+<th:block th:replace="~{fragment/fragments :: base_js}"></th:block>
+</body>
+</html>

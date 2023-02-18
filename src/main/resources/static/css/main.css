@@ -1,0 +1,22 @@
+h1{
+    color: red;
+}
+footer {
+    position: fixed;
+    Width: 100%;
+    bottom: 0;
+    height: 5%;
+    background-color: aliceblue;
+}
+
+main {
+    margin: 5%;
+}
+main>*{
+    margin: 5%;
+}
+#connect-error{
+    color:red;
+    font-size: larger;
+    font-weight: bolder;
+}

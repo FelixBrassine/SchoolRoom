@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>SchoolRoom</title>
+  <th:block th:replace="~{fragment/fragments :: base_css}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{fragment/header :: header}"></th:block>
+<main>
+  <h1>Connection form</h1>
+
+  <form action="/auth/connect" method="post" th:object="${form}">
+    <div th:if="${#fields.hasGlobalErrors()}">
+      <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="form-text form-error" id="connect-error" ></p>
+    </div>
+
+    <div class="mb-3">
+      <label for="in-email" class="form-label">Email</label><br/>
+      <input type="email" id="in-email" th:field="*{email}" class="form-control">
+      <p th:if="${#fields.errors('email')}" th:errors="*{email}" class="form-text form-error"></p>
+    </div>
+
+    <div class="mb-3">
+      <label for="in-pswd" class="form-label">Password</label><br/>
+      <input type="password" id="in-pswd" th:field="*{password}" class="form-control">
+      <p th:if="${#fields.errors('password')}" th:errors="*{password}" class="form-text form-error"></p>
+    </div>
+    <button type="submit" class="btn btn-success">Connect</button>
+  </form>
+</main>
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+<th:block th:replace="~{fragment/fragments :: base_js}"></th:block>
+</body>
+</html>
