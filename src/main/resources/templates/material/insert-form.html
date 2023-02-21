@@ -15,7 +15,6 @@
     <div class="mb-3">
       <label for="in-name" class="form-label">Name</label><br/>
       <input type="text" id="in-name" th:field="*{name}" class="form-control">
-      <p th:if="${#fields.errors('name')}" th:errors="*{name}" class="form-text form-error"></p>
     </div>
     <button type="submit" class="btn btn-success">Insert</button>
   </form>

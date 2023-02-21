@@ -15,7 +15,7 @@ public class DemandMapper {
             return DemandDTO.builder()
                     .id( entity.getId() )
                     .term(entity.getTerm())
-                    .timeSolts( entity.getTimeSlots())
+                    .timeSlots( entity.getTimeSlots())
                     .build();
         }
     }
@@ -25,7 +25,7 @@ public class DemandMapper {
         }else{
             Demand demand = new Demand();
             demand.setTerm( form.getTerm() );
-            demand.setTimeSlots( form.getTimeSolts() );
+            demand.setTimeSlots( form.getTimeSlots() );
             return demand;
         }
     }

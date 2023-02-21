@@ -4,19 +4,26 @@ import be.technobel.fbrassine.exceptions.NotFoundException;
 import be.technobel.fbrassine.models.dto.RoomDTO;
 import be.technobel.fbrassine.models.entity.Room;
 import be.technobel.fbrassine.models.form.RoomForm;
+import be.technobel.fbrassine.repository.MaterialRepository;
 import be.technobel.fbrassine.repository.RoomRepository;
 import be.technobel.fbrassine.service.RoomService;
 import be.technobel.fbrassine.service.mapper.RoomMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
     private final RoomMapper mapper;
-    public RoomServiceImpl(RoomRepository roomRepository, RoomMapper mapper) {
+    private final MaterialRepository materialRepository;
+
+    public RoomServiceImpl(RoomRepository roomRepository, RoomMapper mapper,
+                           MaterialRepository materialRepository) {
         this.roomRepository = roomRepository;
         this.mapper = mapper;
+        this.materialRepository = materialRepository;
     }
 
     @Override
@@ -39,6 +46,9 @@ public class RoomServiceImpl implements RoomService {
             Room entity = mapper.formToEntity(form);
             entity.setName( form.getName() );
             entity.setNumberPlaces( form.getNumberPlaces() );
+            entity.setMaterials(
+                    new HashSet<>(materialRepository.findAllById(form.getMaterialsId()))
+            );
             entity.setTeacherRoom( form.isTeacherRoom() );
             roomRepository.save(entity);
         }
@@ -50,6 +60,9 @@ public class RoomServiceImpl implements RoomService {
 
         toUpdate.setName( form.getName() );
         toUpdate.setNumberPlaces( form.getNumberPlaces() );
+        toUpdate.setMaterials(
+                new HashSet<>(materialRepository.findAllById(form.getMaterialsId()))
+        );
         toUpdate.setTeacherRoom( form.isTeacherRoom() );
         roomRepository.save(toUpdate);
     }

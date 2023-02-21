@@ -5,8 +5,13 @@ footer {
     position: fixed;
     Width: 100%;
     bottom: 0;
-    height: 5%;
-    background-color: aliceblue;
+    background-color: whitesmoke;
+}
+footer>*{
+    margin: 1.5%;
+}
+header>*>*{
+    margin: 1%;
 }
 
 main {

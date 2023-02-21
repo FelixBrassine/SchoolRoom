@@ -2,7 +2,9 @@ package be.technobel.fbrassine.models.form;
 
 import be.technobel.fbrassine.models.entity.Role;
 import be.technobel.fbrassine.validation.constraints.EmailNotTaken;
+import be.technobel.fbrassine.validation.constraints.LoginNotTaken;
 import be.technobel.fbrassine.validation.constraints.PasswordConfirmed;
+import be.technobel.fbrassine.validation.constraints.UserExist;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -20,7 +22,8 @@ public class RegisterForm {
     @NotBlank(message = "Enter a confirm password")
     private String confirm;
     @NotBlank(message = "Enter a login")
-    private String login;
+    @LoginNotTaken
+    private String userLogin;
     @NotBlank(message = "Enter a name")
     private String name;
     @NotBlank(message = "Enter a firstname")

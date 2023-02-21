@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RoomMapper {
+    private final MaterialMapper materialMapper;
+
+    public RoomMapper(MaterialMapper materialMapper) {
+        this.materialMapper = materialMapper;
+    }
+
     public RoomDTO toDto(Room entity){
 
         if (entity == null){
@@ -16,6 +22,11 @@ public class RoomMapper {
                     .id( entity.getId() )
                     .name( entity.getName() )
                     .numberPlaces( entity.getNumberPlaces() )
+                    .materialDTO(
+                            entity.getMaterials().stream()
+                                    .map(materialMapper::toDto)
+                                    .toList()
+                    )
                     .teacherRoom( entity.isTeacherRoom() )
                     .build();
         }

@@ -39,7 +39,7 @@ public class DemandServiceImpl implements DemandService {
         }else{
             Demand entity = mapper.formToEntity(form);
             entity.setTerm( form.getTerm() );
-            entity.setTimeSlots( form.getTimeSolts() );
+            entity.setTimeSlots( form.getTimeSlots() );
             demandRepository.save(entity);
         }
     }
@@ -48,7 +48,7 @@ public class DemandServiceImpl implements DemandService {
         Demand toUpdate = demandRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Demand not found"));
         toUpdate.setTerm( form.getTerm() );
-        toUpdate.setTimeSlots( form.getTimeSolts() );
+        toUpdate.setTimeSlots( form.getTimeSlots() );
         demandRepository.save(toUpdate);
     }
     @Override

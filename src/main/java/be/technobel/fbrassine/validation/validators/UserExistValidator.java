@@ -17,6 +17,6 @@ public class UserExistValidator implements ConstraintValidator<UserExist, Connec
 
     @Override
     public boolean isValid(ConnectForm value, ConstraintValidatorContext context) {
-        return userService.userExist(value.getPassword(), value.getEmail());
+        return userService.checkUserNotExist(value.getPassword(), value.getUserLogin());
     }
 }

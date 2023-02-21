@@ -1,12 +1,11 @@
 package be.technobel.fbrassine.controller;
 
-import be.technobel.fbrassine.models.entity.Role;
 import be.technobel.fbrassine.models.form.ConnectForm;
 import be.technobel.fbrassine.models.form.RegisterForm;
-import be.technobel.fbrassine.repository.UserRepository;
 import be.technobel.fbrassine.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
-    private final UserRepository userRepository;
 
-    public AuthController(AuthService authService,
-                          UserRepository userRepository) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/register")
@@ -29,13 +25,18 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String processRegistration(@ModelAttribute("form") @Valid RegisterForm form, BindingResult bindingResult){
+    public String processRegistration(
+            Model model,
+            @ModelAttribute("form") @Valid RegisterForm form,
+            BindingResult bindingResult){
         if( bindingResult.hasErrors() ){
             form.setPassword(null);
             return "/auth/register-form";
         }
         authService.register(form);
-        return "redirect:/";
+        authService.roleConnected(form);
+        model.addAttribute("role", authService.getRoleConnected());
+        return "redirect:/auth/home";
     }
 
     @GetMapping("/connect")
@@ -44,22 +45,24 @@ public class AuthController {
     }
 
     @PostMapping("/connect")
-    public String processConnectForm(
+    public String processConnectForm(Model model,
             @ModelAttribute("form") @Valid ConnectForm form,
             BindingResult bindingResult){
         if( bindingResult.hasErrors() ){
             form.setPassword(null);
             return "/auth/connect-form";
         }
-        Role role = userRepository.findByPasswordAndEmail(form.getPassword(), form.getEmail()).getRole();
-        switch (role){
-            case ADMIN :
-                return "demand/admin/insert-form";
-            case TEACHER:
-                return "demand/teacher/insert-form";
-            case STUDENT:
-                return "demand/student/insert-form";
-        }
-        return "auth/connect-form";
+        authService.roleConnected(form);
+        return "redirect:/auth/home";
+    }
+    @GetMapping("/logOut")
+    public String logOut(){
+        authService.deconnected();
+        return "index";
+    }
+    @GetMapping("/home")
+    public String displayHome(Model model){
+        model.addAttribute("role", authService.getRoleConnected());
+        return "auth/home";
     }
 }

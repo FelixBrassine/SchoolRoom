@@ -17,10 +17,14 @@ public class UserServiceImpl implements UserService {
     public boolean checkEmailNotTaken(String email){
         return !userRepository.existsByEmail(email);
     }
+    @Override
+    public boolean checkLoginNotTaken(String userLogin) {
+        return !userRepository.existsByUserLogin(userLogin);
+    }
 
     @Override
-    public boolean userExist(String password, String email) {
-        return userRepository.existsByPasswordAndEmail(password, email);
+    public boolean checkUserNotExist(String password, String userLogin) {
+        return userRepository.existsByPasswordAndUserLogin(password, userLogin);
     }
 
 }

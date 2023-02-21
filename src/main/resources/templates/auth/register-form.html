@@ -6,7 +6,7 @@
     <th:block th:replace="~{fragment/fragments :: base_css}"></th:block>
 </head>
 <body>
-    <th:block th:replace="~{fragment/header :: header}"></th:block>
+    <th:block th:replace="~{fragment/header-index :: header}"></th:block>
         <main>
             <h1>Registration form</h1>
 
@@ -33,9 +33,9 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="in-login" class="form-label">Login</label><br/>
-                    <input type="text" id="in-login" th:field="*{login}" class="form-control">
-                    <p th:if="${#fields.errors('login')}" th:errors="*{login}" class="form-text form-error"></p>
+                    <label for="in-userLogin" class="form-label">Login</label><br/>
+                    <input type="text" id="in-userLogin" th:field="*{userLogin}" class="form-control">
+                    <p th:if="${#fields.errors('userLogin')}" th:errors="*{userLogin}" class="form-text form-error"></p>
                 </div>
 
                 <div class="mb-3">

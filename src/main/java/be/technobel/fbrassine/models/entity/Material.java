@@ -16,9 +16,14 @@ public class Material {
     private long id;
     @Column( nullable = false )
     private String name;
-
+    @ManyToMany
+    @JoinTable(
+            name="room_material",
+            joinColumns = @JoinColumn(name = "material_id"),
+            inverseJoinColumns = @JoinColumn(name="room_id")
+    )
+    private Set<Room> rooms = new LinkedHashSet<>();
     @ManyToMany
     private Set<Demand> demands = new LinkedHashSet<>();
-    @ManyToMany
-    private Set<Room> rooms = new LinkedHashSet<>();
+
 }

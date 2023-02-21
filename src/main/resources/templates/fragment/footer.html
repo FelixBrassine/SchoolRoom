@@ -8,6 +8,18 @@
                 <div class="col">
                     17/02/2022
                 </div>
+                <div class="col">
+                    Role :
+                    <th:block th:if="${role==0}">
+                        Admin
+                    </th:block>
+                    <th:block th:if="${role==1}">
+                        Teacher
+                    </th:block>
+                    <th:block th:if="${role==2}">
+                        Student
+                    </th:block>
+                </div>
             </div>
         </div>
     </footer>

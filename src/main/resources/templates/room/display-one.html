@@ -15,6 +15,7 @@
             <td>id</td>
             <td>name</td>
             <td>number of places</td>
+            <td>materials</td>
             <td>is teacher room</td>
             <td></td>
             <td></td>
@@ -25,15 +26,23 @@
             <td th:text="${room.id}"></td>
             <td th:text="${room.name}"></td>
             <td th:text="${room.numberPlaces}"></td>
+            <td>
+                <ul th:each="material:*{room.materialDTO}" th:object="${material}">
+                    <li th:text="*{name}"></li>
+                </ul>
+            </td>
             <td th:text="${room.teacherRoom}"></td>
-            <td><a class="btn btn-outline-danger" th:href="@{ /room/{id}/update (id=*{id}) }">Update</a></td> <td>
-            <form th:action="@{ /room/{id}/delete (id=*{id}) }" method="post">
-                <button type="submit" class="btn btn-outline-danger" th:field="*{id}">Delete</button>
-            </form>
+            <th:block th:if="${role==0}">
+                <td><a class="btn btn-outline-danger" th:href="@{ /room/{id}/update (id=*{id}) }">Update</a></td> <td>
+                <form th:action="@{ /room/{id}/delete (id=*{id}) }" method="post">
+                    <button type="submit" class="btn btn-outline-danger" th:field="*{id}">Delete</button>
+                </form>
+            </th:block>
         </td>
         </tr>
         </tbody>
     </table>
+    <a class="btn btn-success" href="/room/all">Back</a>
 </main>
 <th:block th:replace="~{fragment/footer :: footer}"></th:block>
 <th:block th:replace="~{fragment/fragments :: base_js}"></th:block>

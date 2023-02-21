@@ -16,10 +16,13 @@
             <td>id</td>
             <td>name</td>
             <td>number of places</td>
+            <td>materials</td>
             <td>is teacher room</td>
             <td></td>
-            <td></td>
-            <td></td>
+            <th:block th:if="${role==0}">
+                <td></td>
+                <td></td>
+            </th:block>
         </tr>
         </thead>
         <tbody>
@@ -27,19 +30,27 @@
             <td th:text="*{id}"></td>
             <td th:text="*{name}"></td>
             <td th:text="*{numberPlaces}"></td>
-            <td th:text="*{teacherRoom}"></td>
-
-            <td><a class="btn btn-outline-danger" th:href="@{ /room/{id} (id=*{id}) }">View</a></td>
-            <td><a class="btn btn-outline-danger" th:href="@{ /room/{id}/update (id=*{id}) }">Update</a></td>
             <td>
-                <form th:action="@{ /room/{id}/delete (id=*{id}) }" method="post">
-                    <button type="submit" class="btn btn-outline-danger" th:field="*{id}">Delete</button>
-                </form>
+                <ul th:each="material:*{materialDTO}" th:object="${material}">
+                    <li th:text="*{name}"></li>
+                </ul>
             </td>
+            <td th:text="*{teacherRoom}"></td>
+            <td><a class="btn btn-outline-danger" th:href="@{ /room/{id} (id=*{id}) }">View</a></td>
+            <th:block th:if="${role==0}">
+                <td><a class="btn btn-outline-danger" th:href="@{ /room/{id}/update (id=*{id}) }">Update</a></td>
+                <td>
+                    <form th:action="@{ /room/{id}/delete (id=*{id}) }" method="post">
+                        <button type="submit" class="btn btn-outline-danger" th:field="*{id}">Delete</button>
+                    </form>
+                </td>
+            </th:block>
         </tr>
         </tbody>
     </table>
-    <a class="btn btn-success" th:href="@{/room/add}">Add a room</a>
+    <th:block th:if="${role==0}">
+        <a class="btn btn-success" th:href="@{/room/add}">Add a room</a>
+    </th:block>
 </main>
 <th:block th:replace="~{fragment/footer :: footer}"></th:block>
 <th:block th:replace="~{fragment/fragments :: base_js}"></th:block>

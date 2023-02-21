@@ -6,7 +6,7 @@
   <th:block th:replace="~{fragment/fragments :: base_css}"></th:block>
 </head>
 <body>
-<th:block th:replace="~{fragment/header :: header}"></th:block>
+<th:block th:replace="~{fragment/header-index :: header}"></th:block>
 <main>
   <h1>Connection form</h1>
 
@@ -16,9 +16,9 @@
     </div>
 
     <div class="mb-3">
-      <label for="in-email" class="form-label">Email</label><br/>
-      <input type="email" id="in-email" th:field="*{email}" class="form-control">
-      <p th:if="${#fields.errors('email')}" th:errors="*{email}" class="form-text form-error"></p>
+      <label for="in-userLogin" class="form-label">Login</label><br/>
+      <input type="text" id="in-userLogin" th:field="*{userLogin}" class="form-control">
+      <p th:if="${#fields.errors('userLogin')}" th:errors="*{userLogin}" class="form-text form-error"></p>
     </div>
 
     <div class="mb-3">

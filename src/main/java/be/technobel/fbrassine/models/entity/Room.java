@@ -23,10 +23,5 @@ public class Room {
     @OneToMany (mappedBy = "room")
     private Set<Demand> demands = new LinkedHashSet<>();
     @ManyToMany
-    @JoinTable(
-            name="room_material",
-            joinColumns = @JoinColumn(name = "room_id"),
-            inverseJoinColumns = @JoinColumn(name="material_id")
-    )
     private Set<Material> materials = new LinkedHashSet<>();
 }

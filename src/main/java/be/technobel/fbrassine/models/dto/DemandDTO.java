@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Builder
 public class DemandDTO {
     private long id;
-    private LocalDateTime timeSolts;
+    private LocalDateTime timeSlots;
     private int term;
+    private RoomDTO roomDTO;
 }
